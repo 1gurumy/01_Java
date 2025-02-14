@@ -32,7 +32,7 @@ public class OpExample{
 		
 		System.out.println( temp2-- +2 );
 			// 1.				3 + 2 -> 5  
-			// 2. 보이지 않는 곳에서	후위 연산이 이루어진다.	3-- -> 2
+			// 2. 보이지 않는 곳에서	후위 연산이 이루어진다.	3-- -> 2  따라서 temp2라는 변수에 2라는 값이 저장된다.
 		System.out.println(temp2); //2
 		
 		int a = 3;
@@ -46,7 +46,7 @@ public class OpExample{
 		
 		//최종적으로 a, b, c는 각각 얼마라고 출력될까?
 		System.out.printf("%d / %d / %d\n", a, b, c); //8
-						 // 4 / 4 / 7
+					//      4 / 4 / 7
 		
 	}
 	
