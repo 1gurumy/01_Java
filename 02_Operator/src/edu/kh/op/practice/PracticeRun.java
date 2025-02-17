@@ -3,14 +3,17 @@ package edu.kh.op.practice;
 public class PracticeRun {
 
 	public static void main(String[] args) {
+		
 
-		OperatorPractice2 op2 = new OperatorPractice2();
-		op2.ex();
+		// OperatorPractice op1 = new OperatorPractice();
+		// op1.practice1();
 		
-		OperatorPractice3 op3 = new OperatorPractice3();
-		op3.practice1();
+		// OperatorPractice op2 = new OperatorPractice();
+		// op2.practice2();
 		
-		op3.practice3();
+		OperatorPractice op3 = new OperatorPractice();
+		 op3.practice3();
+		 
 		
 	}
 
