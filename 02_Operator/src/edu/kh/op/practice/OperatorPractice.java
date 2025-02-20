@@ -38,9 +38,6 @@ public class OperatorPractice {
 	}
 	
 	public void practice2() {
-		
-	
-	
 	
 		// 메소드 명 : public void practice2(){}
 		// 키보드로 입력 받은 값들을 변수에 기록하고 
@@ -114,21 +111,26 @@ public class OperatorPractice {
 		Scanner sc = new Scanner(System.in);
 		
 		System.out.print("국어 : ");
-		int input1 = sc.nextInt();
+		int kor = sc.nextInt();
 		
 		System.out.print("영어 : ");
-		int input2 = sc.nextInt();
+		int eng = sc.nextInt();
 		
 		System.out.print("수학 : ");
-		int input3 = sc.nextInt();
-			
-		System.out.printf("합계 : %d", input1+input2+input3);
-		int sum = sc.nextInt();
+		int math = sc.nextInt();
 		
-		System.out.printf("평균 : %d", sum/3);
-		int average = sc.nextInt();
+		int sum = kor + eng + math;
+		double avg = sum/3;
+				
+		System.out.println("합계 : " + sum);
+		System.out.printf("평균 : %.1f", avg);
 		
+		// 각 과목이 40점 이상이고 평균 60점 이상이어야 합격
+		// 그 외 불합격 출력
+
+		boolean result = (kor >= 40) && (eng >= 40) && (math >= 40) && (avg >= 60);
 		
+		System.out.println( result ? "합격" : "불합격");
 		
 		
 	}	
