@@ -28,7 +28,7 @@ public class Book {
 	public Book(String title, int price, 
 			double discountRate, String aouthor) {
 		
-		this.title = title;						//햇
+		this.title = title;						//헷
 		this.price = price;				//갈
 		this.discountRate = discountRate;	//린
 		this.author = aouthor;		//부분
