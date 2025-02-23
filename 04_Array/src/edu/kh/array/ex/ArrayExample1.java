@@ -38,7 +38,7 @@ public class ArrayExample1 {
 		// stack 영역에 int[] 자료형 공간을 4byte 할당하고
 		// 그 공간에 arr이라는 이름을 부여.
 		// ** 해당 변수는 참조형으로 주소값만을 저장할 수 있다.** => int라고 적어도 배열은 참조형
-		
+		 
 		// 배열 할당
 		arr = new int[3];
 		// new : "new 연산자" 라고 하며
@@ -75,8 +75,18 @@ public class ArrayExample1 {
 		// [10, 50, 100] 실제로 arr 배열이 가진 모든 요소의 값을 알고싶을 때
 		// Arrays.toString(배열명);
 		System.out.println(Arrays.toString(arr) );
+
+		int a[] = {1, 2, 3};
+		int[] b = new int[3];
+		System.out.println(a);	// I@2f2c9b19
+		System.out.println(Arrays.toString(a));
+		System.out.println(a[0] + " " + a[1] + " " + a[2]);
 		
-		
+		System.out.println(b);
+		System.out.printf("%d %d %d", b[0], b[1], b[2]);
+		int[] arr2 = {1, 2, 3, 4, 5};
+		System.out.println(Arrays.toString(arr2));
+		 
 	}
 
 	public void ex2() {
@@ -92,7 +102,7 @@ public class ArrayExample1 {
 		arr[3] = 1000;
 		// arr[4] = 5000;
 		// java.lang.ArrayIndexOutOfBoundsException: Index 4 out of bounds for length 4
-		// 해석: 배열의 인덱스 범위를 벗어남 : 길이나 4칸짜리 배열인데, 없는 인덱스 번호인 4에 접근했다.
+		// 해석: 배열의 인덱스 범위를 벗어남 : 길이가 4칸짜리 배열인데, 없는 인덱스 번호인 4에 접근했다.
 		
 		
 		// 코드에서 빨간줄 에러 : 컴파일 에러
@@ -109,12 +119,10 @@ public class ArrayExample1 {
 			// arr[1] 에 저장된 값 : 200
 			// ..
 			
-			
-			
 		}
 		
 		// 선언과 동시에 초기화
-		int[] arr2 = {1, 2, 3 , 4, 5};
+		int[] arr2 = {1, 2, 3, 4, 5};
 		// 해석: stack 영역에 int[] 자료형 공간을 4byte 할당하고
 		// 그 공간에 arr2라는 이름 부여
 		// Heap 메모리 영역에 int 5칸짜리 int[]을 생성하고 

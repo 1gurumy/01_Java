@@ -188,7 +188,6 @@ public class ForExample { // 기능 제공용 클래스
 			System.out.println();
 		}
 		
-		System.out.println("=============");
 		
 		// 흐름이 이해가 가신분들은..
 		// 구구단 모두 역순 출력하기 !

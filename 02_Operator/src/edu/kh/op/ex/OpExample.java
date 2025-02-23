@@ -47,6 +47,8 @@ public class OpExample{
 		//최종적으로 a, b, c는 각각 얼마라고 출력될까?
 		System.out.printf("%d / %d / %d\n", a, b, c); //8
 					//      4 / 4 / 7
+		System.out.println(temp1);
+		System.out.println(temp2);
 		
 	}
 	
