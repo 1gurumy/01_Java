@@ -63,7 +63,7 @@ public class LoopPractice { // 기능 작성용
 	}	
 
 	
-	/* public void practice3() {
+	 public void practice3() {
 		
 	
 	// 1부터 사용자에게 입력 받은 수까지의 정수들의 합을     	
@@ -79,18 +79,13 @@ public class LoopPractice { // 기능 작성용
 		int input = sc.nextInt();
 		
 		for(int i = 1; i <= input; i++) {
-			sum += i
+			sum += i;
 			
 			System.out.printf("%d + %d + %d + %d + %d + %d + %d + %d = %d", input-i ~ input);
-		*/
-		}
-	
-}
-	
-	
-	
-	
+		
+	}
 	
 }
 
+}
 	

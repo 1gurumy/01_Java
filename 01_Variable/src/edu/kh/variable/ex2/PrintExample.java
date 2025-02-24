@@ -82,5 +82,31 @@ public class PrintExample {
 		// 65를 16진수로 표현
 		// 65 나누기 15 => 몫4, 나머지1
 		
+		System.out.print("건강한게 최고야\n");
+		System.out.print("이불 밖은 위험해\n");
+		
+		System.out.printf("%5d\n", 10);
+		System.out.printf("%3d\n", 10);
+		System.out.printf("%-4d\n", 10);
+		System.out.printf("%.2f\n",10.25789);
+
+		System.out.print("건강한게 최고야");
+		System.out.print("이불 밖은 위험해");
+		
+		System.out.println();
+
+		// \n 사용해보기
+		System.out.print("건강한게 최고야\n"); 
+		System.out.print("이불 밖은 위험해\n");
+		
+		System.out.println();
+
+		// \t 사용해보기
+		System.out.println("a\tb\tc\td");
+
+		System.out.println("\\"); // 역슬래시 하나만 출력하고 싶은 
+							   	  // 경우 역슬래시를 두 개 적어야 함.
+		                          
+		System.out.println("\\o/");   
 	}
 }
