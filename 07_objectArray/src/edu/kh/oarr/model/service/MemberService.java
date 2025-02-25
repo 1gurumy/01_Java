@@ -12,16 +12,16 @@ public class MemberService {
 	
 	// 회원가입한 사람의 정보를 저장해둘 참조변수
 	// Member 5칸짜리 객체배열 선언 및 할당
-	private Member[] memberArr = new Member[5];
+	private Member[] memberArr = new Member[5]; // 생성자 아님 []있으니까 배열 
 	// memberArr 배열은 Member의 객체를 참조하는 참조변수 겸 객체이므로 기본값이 null이다.
 	
 	// 현재 로그인한 회원의 정보를 저장할 참조 변수 선언
-	private Member loginMember = null;
+	private Member loginMember = null;	//q 초기화를 왜 해야하나? 선언만 해놓고 나중에 필요할때 초기화해도 되는거 아닌지
 	
-	public MemberService() {	// 기본생성자
+	public MemberService() {	// 기본생성자	//q 필드인데 왜 private 안쓰고 public 썼는지?
 	
 		// memberArr 배열 0, 1, 2 인덱스 초기화
-		memberArr[0] = new Member("user01", "pass01", "홍길동", 30, "서울");
+		memberArr[0] = new Member("user01", "pass01", "홍길동", 30, "서울");	// 생성자임. Member에서 매개변수 생성자 이용해서 객체(배열) 생성한 것.
 		memberArr[1] = new Member("user02", "pass02", "계보린", 25, "경기");
 		memberArr[2] = new Member("user03", "pass03", "고길동", 45, "강원");
 	
@@ -261,7 +261,7 @@ public class MemberService {
 	
 																		// 초기값 true가 유지된 상태
 	
-	public void ex() {
+	public void ex() {	//q 이건 왜쓴거지?? 
 		System.out.println(Arrays.toString(memberArr));
 	}
 	
@@ -279,7 +279,7 @@ public class MemberService {
 		지역 : 서울
  	 * 
  	 * */
- 	// 회원 정보 조회 메서드
+ 	//회원 정보 조회 메서드
  	public String selectMember() {
  		
  		System.out.println("\n======회원 정보 조회=======");
@@ -304,7 +304,7 @@ public class MemberService {
  	}
  	
 	// 회원 정보 수정 메서드
- 	public int updateMember() {
+ 	public int updateMember() {	// 
  		System.out.println("\n======회원 정보 수정=======");
  		
  		// 1) 로그인 여부 판별
