@@ -49,7 +49,7 @@ public class Run {
 			 * */
 		//1 - 3. 반복문을 통해 출력
 		for(Student std : students) {	//Student 타입의 studemts배열의 0번 인덱스부터 마지막 인덱스까지 접근하여 각각의 인덱스에 있는 객체를 불러와 std(변수)라고 부르겠다.
-		System.out.println(std.information());
+			System.out.println(std.information());
 		
 		}
 		

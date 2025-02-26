@@ -29,7 +29,10 @@ public class Student extends Person {
 		// 추후에 Student라는 객체 만들어서 Student에 있는 information() 메서드를 호출하면 
 		// => "이름 : 홍길동 / 나이 : 20 / 신장 : 180.0 / 몸무게 : 70.0 / 학년 : 3 / 전공 : 컴공과"
 		//  호출한 쪽에서 이런식의 문자열을 반환받는것.
-	}
+			
+		
+		
+	}				
 	
 	
 }
