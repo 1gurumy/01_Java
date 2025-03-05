@@ -18,6 +18,7 @@ public class PracticeService {
 		짝수 번째 인덱스 합 : 25
 		*/
 		
+		
 		int arr[] = new int[9];
 		
 		for(int i = 0; i < arr.length; i++) { // 인덱스 번호
@@ -73,8 +74,7 @@ public class PracticeService {
 			1 2 3 4 5
 		 */
 		
-		Scanner sc = new Scanner(System.in);
-			
+			Scanner sc = new Scanner(System.in);
 			
 			System.out.print("양의 정수 : " );
 			int input1 = sc.nextInt();
@@ -195,8 +195,8 @@ public class PracticeService {
 			
 			// 과정 먼저 정하기
 			// 1. 사용자에게 문자열 입력받기
-			System.out.printl("문자열 : ");
-			String str = sc
+		//	System.out.println("문자열 : ");
+		//	String str = sc;
 			// 2. 사용자가 입력한 문자열을 하나하나 잘라서 char 배열에 넣기
 			// -> 사용자가 입력한 문자열의 길이만큼의 char 배열을 할당
 			// 3. 문자 입력받기 (검색할 문자)
@@ -206,7 +206,7 @@ public class PracticeService {
 		
 		}	
 		
-}
+
 	
 	public void practice6() {
 		/*사용자가 배열의 길이를 직접 입력하여 그 값만큼 정수형 배열을 선언 및 할당하고

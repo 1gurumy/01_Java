@@ -9,9 +9,9 @@ public class PracticeRun {
 		PracticeService ar = new PracticeService();
 		// ar.practice1();
 		// ar.practice2();
-		// ar.practice3();
+		 ar.practice3();
 		// ar.practice4();
-		 ar.practice5();
+		// ar.practice5();
 	}
 
 }

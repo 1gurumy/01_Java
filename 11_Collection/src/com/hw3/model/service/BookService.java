@@ -8,6 +8,152 @@ import com.hw3.model.dto.Book;
 
 public class BookService {
 
+	private List<Book> books = new ArrayList<>();	// 도서(객체) 목록 저장할 리스트 생성
+	// List <Book>타입 컬렉션 - ArrayList 선언, 참조변수 books가 이 List <Book>타입 컬렉션 - ArrayList의 주소값 참조함.
+	// List(부모)타입 부모타입참조변수 = new 자식타입  --=> 다형성 중 업캐스팅 적용상태.
+	
+	private Scanner sc = new Scanner(System.in);	// 스캐너
+	
+	// 기본생성자
+	public BookService() {
+		// Book의 매개변수 생성자 이용해서 도서목록 리스트에 도서 객체 5개 생성
+		// -> 매개변수에 따라 다르게 초기화해야 하므로 생성자 내에서 초기화하는 것.
+		this.books.add(new Book(1111, "세이노의 가르침", "세이노", 6480, "데이원"));
+		this.books.add(new Book(2222, "문과남자의 과학공부", "유시민", 15750, "돌베개"));
+		this.books.add(new Book(3333, "역행자", "자청", 17550, "웅진지식하우스"));
+		books.add(new Book(4444, "꿀벌의 예언", "베르나르 베르베르", 15120, "열린책들"));
+		books.add(new Book(5555, "도둑맞은 집중력", "요한 하리", 16920, "어크로스"));
+
+}
+	
+	
+	/**
+	 * 메인 화면 
+	 * 입력한 번호에 따라 각각 다른 기능 수행
+	 * -> switch문 사용, 각각의 번호에서 기능 수행할 메서드 호출
+	 * 
+	 */
+	public void displayMenu() {
+		int input;	//q 메뉴 선택용 변수 //변수를 초기화하지 않고 사용하려고 하면 컴파일 에러가 발생하기 때문에 초기화해주는 것.
+		do {  // 0번을 입력하기 전까지 반복할건데 그 반복 횟수가 정해지지 않았으며, 메뉴 번호를 입력하지 않아도 
+			  // 반드시 콘솔창에 메인화면이 출력되어야 하므로 do while문 사용
+		System.out.println("===도서 등록 프로그램===");
+		System.out.println("1. 도서 등록");
+		System.out.println("2. 도서 조회");
+		System.out.println("3. 도서 수정");
+		System.out.println("4. 도서 삭제");
+		System.out.println("5. 즐겨찾기 추가");
+		System.out.println("6. 즐겨찾기 삭제");
+		System.out.println("7. 즐겨찾기 조회");
+		System.out.println("8. 추천도서 뽑기");
+		System.out.println("0. 프로그램 종료");
+		System.out.print("메뉴를 입력하세요 : ");
+		input = sc.nextInt(); // 번호 입력받기
+		
+		switch(input) { // 입력받은 번호에 따라 각각의 기능 수행할 메서드 호출
+			case 1 :	addBook(); /*1. 도서 등록*/ break;
+			case 2 :	showBooks();/*2. 도서 조회*/ break;
+			case 3 :	/*3. 도서 수정*/
+			case 4 :	/*4. 도서 삭제*/
+			case 5 :	/*5. 즐겨찾기 추가*/
+			case 6 :	/*6. 즐겨찾기 삭제*/
+			case 7 :	/*7. 즐겨찾기 조회*/
+			case 8 :	/*8. 추천도서 뽑기*/
+			case 0 :	System.out.println("프로그램 종료..");
+			default :	/*0 ~ 8 사이에 있는 번호가 아닌 다른 번호를 입력한 경우*/
+						System.out.println("메뉴에 있는 번호만 입력해주세요."); break;
+		}
+		}while(input != 0);	// 0번을 입력하기 전까지 반복. 0번 입력받으면 반복 종료.
+	}
+	
+	/**
+	 * 1. 도서 등록
+	 */
+	public void addBook() {
+		System.out.println("등록할 도서의 정보를 입력해주세요.");
+		
+		System.out.print("도서 번호 : ");
+		int bookNum = sc.nextInt(); 	// 등록할 도서의 번호 입력받기
+		sc.nextLine();	// 입력버퍼에 남은 개행 문자 제거용
+		
+		System.out.print("도서 제목 : ");
+		String title = sc.nextLine();	// 등록할 도서의 제목 입력받기
+		
+		System.out.print("저자 : ");
+		String author = sc.nextLine();	// 등록할 도서의 저자명 입력받기
+		
+		System.out.print("가격 : ");
+		int price = sc.nextInt(); 		// 등록할 도서의 가격 입력받기
+		sc.nextLine(); // 입력 버퍼에 남은 개행 문자 제거용
+		
+		System.out.print("출판사 : ");
+		String publisher =  sc.nextLine();	// 등록할 도서의 출판사 입력받기
+		
+		Book addBook = new Book(bookNum, title, author, price, publisher); // 입력받은 정보를 토대로 새로운 도서 객체 생성
+		
+		books.add(addBook);	// 새로 생성한 도서 객체를 도서 목록 리스트에 추가
+		
+		//q	return "등록 완료";	// 등록 과정 완료 시 "등록 완료" 문자열 반환
+		System.out.println("등록 완료");
+		
+	}
+	
+	/**
+	 * 2. 도서 조회
+	 * 등록된 도서 목록들을 보여줄 메서드
+	 * 등록되어 있는 도서가 있다면 목록을 모두 보여주기 -> if문, for문 사용
+	 * 등록되어있는 도서가 없으면 "등록된 도서가 없습니다. 도서를 등록해주세요!" 출력 -> else
+	 */
+	public void showBooks() {
+		System.out.println("====도서 목록====");
+		
+		if(!books.isEmpty()) {	// 등록된 도서가 하나라도 있으면
+			for(Book i : books) {
+				System.out.println(i); 	
+			// => books.toString() 객체 출력할때는 toString 메서드가 묵시적으로 작성되어있음.
+				// Book클래스에서 재정의한 toString()메서드를 토대로 도서 정보 출력
+			}
+			
+		} else { // 등록되어 있는 도서가 전혀 없으면
+			System.out.println("등록된 도서가 없습니다. 도서를 등록해주세요!");
+		}
+		
+	}
+	
+	/**
+	 * 3. 도서 수정
+	 * 수정하고 싶은 도서의 도서 번호 입력받기 
+	 * -> 입력받은 번호랑 도서 리스트에 있는 도서의 도서번호 중 일치하는 게 있는지 찾기 -> for문(도서리스트 다 뒤져봐야 하므로), if문 사용
+	 * --> 있으면 해당 도서 정보 보여주기 / 없으면 "해당하는 도서가 없습니다"
+	 * 일치하는게 있다면 해당 1. 도서의 번호, 2. 제목, 3. 저자, 4. 가격, 5. 출판사 중에서 수정하고 싶은 것 번호로 입력받기.
+	 * 입력받은 수정사항 반영하기
+	 */
+	public void editBook() {
+		System.out.println("===도서 수정===");
+		
+		System.out.print("수정할 도서의 도서 번호 입력: ");
+		int bookNum = sc.nextInt();	// 수정하고 싶은 도서의 도서 번호 입력받기
+		
+		if(bookNum != ) {
+			
+		}
+		
+	}
+	
+}
+
+
+/*--------------------------------------------------------------------------------------------
+package com.hw3.model.service;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Scanner;
+
+import com.hw3.model.dto.Book;
+
+public class BookService {
+
 	private List<Book> books = new ArrayList<>(); 	// 도서 목록 저장할 List 생성	
 	// : Book(사용자 정의 자료형)타입 ArrayList 컬렉션 생성. ArrayList 컬렉션의 주소값을 참조변수 books가 참조한다.
 	
@@ -325,3 +471,4 @@ public void randomBook() {
 	
 	
 }
+*/
