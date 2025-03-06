@@ -14,6 +14,11 @@ public class BookService {
 	
 	private Scanner sc = new Scanner(System.in);	// 스캐너
 	
+	private List<Book> favBooks = new ArrayList<Book>();	// 즐겨찾기한 도서 객체 저장할 리스트 생성.
+	// List <Book>타입 컬렉션 ArrayList 선언, 참조변수 favBooks가 List<Book> 타입 컬렉션 - ArrayList의 주소값을 참조함.
+	// 부모타입(List) 부모타입 참조변수 = new 자식타입(ArrayList); --> 다형성 중 업캐스팅 적용
+	
+	
 	// 기본생성자
 	public BookService() {
 		// Book의 매개변수 생성자 이용해서 도서목록 리스트에 도서 객체 5개 생성
@@ -54,9 +59,9 @@ public class BookService {
 			case 1 :	addBook(); /*1. 도서 등록 메서드 실행*/ break;
 			case 2 :	showBooks();/*2. 도서 조회 메서드 실행*/ break;
 			case 3 :	editBook(); /*3. 도서 수정 메서드 실행*/ break;
-			case 4 :	/*4. 도서 삭제 메서드 실행*/
-			case 5 :	/*5. 즐겨찾기 추가 메서드 실행*/
-			case 6 :	/*6. 즐겨찾기 삭제 메서드 실행*/
+			case 4 :	deleteBook(); /*4. 도서 삭제 메서드 실행*/ break;
+			case 5 :	addFav();/*5. 즐겨찾기 추가 메서드 실행*/ break;
+			case 6 :	addFav();/*6. 즐겨찾기 삭제 메서드 실행*/ break;
 			case 7 :	/*7. 즐겨찾기 조회 메서드 실행*/
 			case 8 :	/*8. 추천도서 뽑기 메서드 실행*/
 			case 0 :	System.out.println("프로그램 종료..");
@@ -183,14 +188,14 @@ public class BookService {
 						i.setPublisher(publisher);	// 변경한 출판사 적용
 						break;
 				
-				case 0 : /*0. 수정 종료*/ System.out.println("수정을 종료합니다..."); break;
+				case 0 : /*0. 수정 종료*/ System.out.println("수정을 종료합니다..."); return;
 						
 				default : // 0 ~ 5 사이의 번호가 아닌 다른 번호를 입력할 경우
 						System.out.println("잘못 입력하셨습니다. 메뉴에 있는 번호만 입력해주세요."); break;
 				
 				} 
 				
-				break; // 이 break는 if문 빠져나가짐?
+				// break; // 이 break는 if문 빠져나가짐?
 				
 			} /*if문 끝*/
 				
@@ -206,12 +211,142 @@ public class BookService {
 	 * 4. 도서 삭제
 	 */
 	public void deleteBook() {
+		System.out.println("===도서 삭제===");
+		System.out.print("삭제할 도서의 도서번호를 입력해주세요 : ");
+		int bookNum = sc.nextInt();	// 삭제하고 싶은 도서의 도서 번호 입력받기
+		
+		for(Book i : books) { // books 리스트를 순회하면서 
+			if(i.getBookNum() == bookNum) {	// 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 도서 객체가 있다면
+				
+				System.out.print("정말로 삭제하시겠습니까? (Y/N) : ");	// 삭제 여부 묻기
+				char answer = sc.next().toUpperCase().charAt(0);	
+				// 문자열 입력받기. 입력받은 문자열 대문자 전환 -> 문자열 중에서 0번째 글자 char타입으로 전환해서 변수 answer에 대입.
+				// yes -> Y		// Nooooo -> N
+				
+				if(answer == 'Y') {	// answer에 저장된 값이 Y일 경우
+					books.remove(i);	// 입력받은 도서번호와 일치하는 도서번호를 가진 도서 객체를 books 리스트에서 삭제
+					System.out.println("삭제 완료");
+					break; //Exception in thread "main" java.util.ConcurrentModificationException => 반복문 수행 중 리스트와 같은 객체에 수정작업이 일어나면 발생하는 예외. 
+					// 이 예외를 해결하려면 수정사항이 일어난 후 break 작성해서 반복문 빠져나가도록 하기.
+					
+				} else if(answer == 'N') {	// answer에 저장된 값이 N일 경우
+					System.out.println("삭제되지 않았습니다.");
+					
+				} else {	// answer에 저장된 값이 Y 또는 N이 아닌 경우
+					System.out.println("y/n 로 입력해주세요.");
+				}
+				
+			} if(i.getBookNum() != bookNum) {	// 없는 도서 번호를 입력한 경우
+				System.out.println("해당하는 도서가 없습니다.");
+				return;	// for문 빠져나가서 반복 종료. 해당 if문이 for문 안에 있기 때문에 return 안쓰면 리스트에 있는 객체 갯수만큼 "해당하는 도서가 없습니다" 반복출력되는 문제가 발생함.
+			}
+			
+			
+		}/* <- for문 끝*/
+		
+		
+	}
+	
+	/**
+	 * 5. 즐겨찾기 추가
+	 * 
+	 * favBooks 리스트 순회하면서 -> for문 
+	 * favBooks 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 있다면 "이미 즐겨찾기 되어있습니다." 출력-> if문
+	 * favBooks 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 없다면 -> else문,  
+	 *   입력받은 도서번호에 해당하는 객체를 books 리스트로부터 꺼내와서 -> for문, favBook 리스트에 그대로 그 객체를 추가하고-> .add(); "즐겨찾기 추가 완료" 출력 
+	 * Books 리스트 중에서 -> for문,  입력받은 도서번호와 일치하는 도서번호를 가진 도서 객체가 없다면 -> if문, "해당하는 도서가 없습니다." 출력  
+	 * 
+	 */
+	/*
+	public void addFav() {
+		System.out.print("즐겨찾기 하고싶은 도서의 도서번호를 입력해주세요 : ");
+		int bookNum = sc.nextInt();	// 즐겨찾기 List에 등록할 도서의 도서번호 입력받기
+		
+		for(Book i : favBooks) {	// favBooks 리스트의 객체들 중에서 
+			if(bookNum == i.getBookNum()) { // 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 있다면
+				System.out.println("이미 즐겨찾기 되어있습니다."); // "이미 즐겨찾기 되어있습니다." 출력
+				return;	// 이미 즐겨찾기 되어있는걸 앞 객체에서 찾았다면 그 뒤에 있는 객체들 볼 필요 없으므로 for문 반복 종료.
+				
+			} else { // favBooks 리스트의 객체 중 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 없다면
+				System.out.println("즐겨찾기 목록에 그 도서가 없는데 추가해드릴꼐요");
+				}
+			
+				for(Book ii : books) {	// books 리스트 순회하면서 
+					if(bookNum == ii.getBookNum()) {	// 입력받은 도서번호에 해당하는 객체가 books 리스트에 있는 객체라면
+						favBooks.add(ii); 	// 해당하는 객체를 books 리스트로부터 꺼내와서 favBook 리스트에 그대로 그 객체를 추가하고
+						
+						System.out.println("즐겨찾기 추가 완료^^");	//"즐겨찾기 추가 완료" 출력 
+						return;	// 입력받은 도서번호에 해당하는 객체 찾았으면 그 뒤에 있는 객체들 더이상 확인해볼 필요 없으므로 반복 종료.
+						
+					} // books 리스트에서, 입력받은 도서번호와 일치하는 도서번호를 가진 도서 객체가 없다면
+						System.out.println("해당하는 도서가 없습니다"); //"해당하는 도서가 없습니다." 출력  
+						//return;
+				
+				}	
+				
+		}
+	}*/
+	
+	/**
+	 * 5. 즐겨찾기 추가
+	 * 
+	 * favBooks 리스트 순회하면서 -> for문 
+	 * 1. favBooks 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 있다면 "이미 즐겨찾기 되어있습니다." 출력-> if문
+	 * 2. favBooks 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 없다면 -> else문,  
+	 *    입력받은 도서번호에 해당하는 객체를 books 리스트로부터 꺼내와서 -> for문, favBook 리스트에 그대로 그 객체를 추가하고-> .add(); "즐겨찾기 추가 완료" 출력 
+	 * 3. Books 리스트 중에서 -> for문,  입력받은 도서번호와 일치하는 도서번호를 가진 도서 객체가 없다면 -> if문, "해당하는 도서가 없습니다." 출력  
+	 * 
+	 */
+	public void addFav() {
+		System.out.println("===즐겨찾기 추가===");
+		System.out.print("즐겨찾기에 추가할 도서번호를 입력해주세요 : ");
+		int input = sc.nextInt();
+		
+		// 3. Books 리스트 중에서 -> for문,  입력받은 도서번호와 일치하는 도서번호를 가진 도서 객체가 없다면 -> if문, "해당하는 도서가 없습니다." 출력  
+		for(Book i : books) {	// Books 리스트 중에서
+			if(input == i.getBookNum()) { 	// 입력받은 도서번호와 일치하는 도서번호를 가진 도서 객체가 없다면
+				 // "해당하는 도서가 없습니다." 출력
+				favBooks.add(i);
+			
+			System.out.println(i.getTitle()+"책이 즐겨찾기 추가가 완료되엇씁니다");
+			
+				return; // 메서드 종료하고 호출한 곳으로 "해당하는 도서가 없습니다." 문자열 반환
+			}else {
+				System.out.println("해당하는 도서가 없습니다.");
+				return;
+			}
+			
+		}
+		
+		// 1. favBooks 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 있다면 "이미 즐겨찾기 되어있습니다." 출력-
+	//	for(Book i : favBooks) { //favBooks 리스트 중에서
+		//	if(input == i.getBookNum()) {	// favBooks 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 있다면
+			//	System.out.println("이미 즐겨찾기 되어 있습니다.");	// "이미 즐겨찾기 되어있습니다." 출력->
+			//	return;	// 찾으면 addFav() 메서드 종료하고 addFav() 메서드 호출한 곳으로 "이미 즐겨찾기 되어 있습니다." 문자열 반환
+				
+			}	// 2. favBooks 리스트 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 없었다면
+				// 	  입력받은 도서번호에 해당하는 객체를 books 리스트로부터 꺼내와서 -> for문,
+				//  favBook 리스트에 그대로 그 객체를 추가하고-> .add(); "즐겨찾기 추가 완료" 출력 
+			
+				// 입력받은 도서번호에 해당하는 객체를 books 리스트로부터 꺼내와
+				//for(Book ii : books) {	// books 리스트 중에서 
+				//	if(bookNum == ii.getBookNum()) {	// 입력받은 도서번호와 일치하는 도서번호 가진 객체가 있다면 
+						
+					//	favBooks.add(ii); // 그 객체를 books 리스트로부터 꺼내와서 favBooks 리스트에 추가하기
+					//	System.out.println("즐겨찾기 추가 완료");	// "즐겨찾기 추가 완료" 출력 
+					//	return;	// 메서드 종료하고 호출한 곳으로 "즐겨찾기 추가 완료" 문자열 반환
+					
+				
+			
 		
 		
 		
 	}
 	
-}
+	
+	
+		
+
 
 
 
