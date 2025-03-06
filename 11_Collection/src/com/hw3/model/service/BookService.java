@@ -51,14 +51,14 @@ public class BookService {
 		input = sc.nextInt(); // 번호 입력받기
 		
 		switch(input) { // 입력받은 번호에 따라 각각의 기능 수행할 메서드 호출
-			case 1 :	addBook(); /*1. 도서 등록*/ break;
-			case 2 :	showBooks();/*2. 도서 조회*/ break;
-			case 3 :	/*3. 도서 수정*/
-			case 4 :	/*4. 도서 삭제*/
-			case 5 :	/*5. 즐겨찾기 추가*/
-			case 6 :	/*6. 즐겨찾기 삭제*/
-			case 7 :	/*7. 즐겨찾기 조회*/
-			case 8 :	/*8. 추천도서 뽑기*/
+			case 1 :	addBook(); /*1. 도서 등록 메서드 실행*/ break;
+			case 2 :	showBooks();/*2. 도서 조회 메서드 실행*/ break;
+			case 3 :	editBook(); /*3. 도서 수정 메서드 실행*/ break;
+			case 4 :	/*4. 도서 삭제 메서드 실행*/
+			case 5 :	/*5. 즐겨찾기 추가 메서드 실행*/
+			case 6 :	/*6. 즐겨찾기 삭제 메서드 실행*/
+			case 7 :	/*7. 즐겨찾기 조회 메서드 실행*/
+			case 8 :	/*8. 추천도서 뽑기 메서드 실행*/
 			case 0 :	System.out.println("프로그램 종료..");
 			default :	/*0 ~ 8 사이에 있는 번호가 아닌 다른 번호를 입력한 경우*/
 						System.out.println("메뉴에 있는 번호만 입력해주세요."); break;
@@ -123,10 +123,10 @@ public class BookService {
 	/**
 	 * 3. 도서 수정
 	 * 수정하고 싶은 도서의 도서 번호 입력받기 
-	 * -> 입력받은 번호랑 도서 리스트에 있는 도서의 도서번호 중 일치하는 게 있는지 찾기 -> for문(도서리스트 다 뒤져봐야 하므로), if문 사용
+	 * -> 입력받은 번호랑 도서 리스트에 있는 도서의 도서번호 중 일치하는 게 있는지 찾기 -> for문(도서 목록 리스트 다 뒤져봐야 하므로), if문 사용
 	 * --> 있으면 해당 도서 정보 보여주기 / 없으면 "해당하는 도서가 없습니다"
-	 * 일치하는게 있다면 해당 1. 도서의 번호, 2. 제목, 3. 저자, 4. 가격, 5. 출판사 중에서 수정하고 싶은 것 번호로 입력받기.
-	 * 입력받은 수정사항 반영하기
+	 * 일치하는게 있다면 해당 1. 도서의 번호, 2. 제목, 3. 저자, 4. 가격, 5. 출판사 중에서 수정하고 싶은 것 번호로 입력받기, 입력받은 번호 토대로 수정 시행 -> switch문 사용
+	 * 입력받은 수정사항 적용하기
 	 */
 	public void editBook() {
 		System.out.println("===도서 수정===");
@@ -134,13 +134,85 @@ public class BookService {
 		System.out.print("수정할 도서의 도서 번호 입력: ");
 		int bookNum = sc.nextInt();	// 수정하고 싶은 도서의 도서 번호 입력받기
 		
-		if(bookNum != ) {
+		
+		for(Book i : books) {	// 도서 목록 리스트의 모든 도서 객체 뒤지기
+			if(i.getBookNum() == bookNum) {	// 도서 목록 리스트에 있는 객체들 중에서 입력받은 도서번호와 같은 도서번호를 가진 객체가 있다면
+				System.out.println(i.toString()); // => 해당 객체의 정보 출력
+				System.out.println("어떤 정보를 수정하시겠습니까?");
+				System.out.println("1. 도서 번호");
+				System.out.println("2. 도서 제목");
+				System.out.println("3. 저자");
+				System.out.println("4. 가격");
+				System.out.println("5. 출판사");
+				System.out.println("0. 수정 종료");
+				
+				System.out.print("번호 입력 : ");
+				int input = sc.nextInt();	// 수정하고 싶은 것 번호로 입력받기
+				
+				
+				//q boolean flag = false;  
+				
+				switch(input) {
+				case 1 : /*1. 도서 번호 수정*/
+						System.out.print("변경할 도서 번호 입력 : ");
+						int reBookNum = sc.nextInt();	// 변경할 번호 입력받기
+						i.setBookNum(reBookNum);	// 변경한 번호 적용	
+						break;
+						
+				case 2 : /*2. 도서 제목 수정*/ 
+						System.out.print("변경할 도서 제목 입력 : ");
+						String title = sc.nextLine(); // 변경할 제목 입력받기
+						i.setTitle(title); // 변경한 제목 적용
+						break;
+						
+				case 3 : /*3. 저자 수정*/
+						System.out.print("변경할 저자명 입력 : ");
+						String author = sc.nextLine();	// 변경할 저자명 입력받기
+						i.setAuthor(author);	// 변경한 저자명 적용
+						break;
+						
+				case 4 : /*4. 가격 수정*/
+						System.out.print("변경할 가격 입력 : ");
+						int price = sc.nextInt();	// 변경할 가격 입력받기
+						i.setPrice(price);	// 변경한 가격 적용
+						break;
+						
+				case 5 : /*5. 출판사 수정*/
+						System.out.print("변경할 출판사 입력 : ");
+						String publisher = sc.nextLine();	// 변경할 출판사 입력받기
+						i.setPublisher(publisher);	// 변경한 출판사 적용
+						break;
+				
+				case 0 : /*0. 수정 종료*/ System.out.println("수정을 종료합니다..."); break;
+						
+				default : // 0 ~ 5 사이의 번호가 아닌 다른 번호를 입력할 경우
+						System.out.println("잘못 입력하셨습니다. 메뉴에 있는 번호만 입력해주세요."); break;
+				
+				} 
+				
+				break; // 이 break는 if문 빠져나가짐?
+				
+			} /*if문 끝*/
+				
+			break;	
+			} /* for문 끝*/
 			
+				// 도서 목록 리스트의 객체 중에서 입력받은 도서번호와 일치하는 도서번호를 가진 객체가 없다면 
+				 System.out.println("해당하는 도서가 없습니다.");
 		}
+	
+	
+	/**
+	 * 4. 도서 삭제
+	 */
+	public void deleteBook() {
+		
+		
 		
 	}
 	
 }
+
 
 
 /*--------------------------------------------------------------------------------------------
@@ -167,6 +239,7 @@ public class BookService {
 	/**
 	 * 메인 화면
 	 */
+	/*
 	public void mainDisplay() {
 		
 		int input = 0; // 메뉴 선택용 변수
@@ -213,6 +286,7 @@ public class BookService {
 	/**
 	 * 1. 도서 등록 
 	 */
+	/*
 	public String addBook() {
 		System.out.println("등록할 도서 정보를 입력하세요.");
 		
@@ -246,6 +320,7 @@ public class BookService {
 	/**
 	 * 2. 도서 조회
 	 */
+	/*
 	public void showBook() {
 		System.out.println("===도서 조회===");
 		
@@ -266,6 +341,7 @@ public class BookService {
 	/**
 	 * 3. 도서 수정
 	 */
+	/*
 	public String editBook() {
 		System.out.println("===도서 목록===");
 		showBook();	// 등록된 도서목록 출력
@@ -340,6 +416,7 @@ public class BookService {
 	/**
 	 * 4. 도서 삭제
 	 */
+	/*
 	public String deleteBook() {
 		System.out.println("===도서 삭제===");
 		System.out.println("삭제할 도서 번호를 입력하세요 : ");
@@ -374,6 +451,7 @@ public class BookService {
 	/**
 	 * 7. 즐겨찾기 조회
 	 */
+	/*
 	public void showFav() {
 		//List<Book> favBook = new ArrayList<Book>();
 		if(favBook.isEmpty()) {	// favBook 리스트가 비어있다면 
@@ -396,6 +474,7 @@ public class BookService {
 	/**
 	 * 5. 즐겨찾기 추가
 	 */
+	/*
 	public String addFav() {
 		System.out.println("===즐겨찾기 목록===");
 		showFav();	// 즐겨찾기에 있는 목록들 출력. 비어있다면 "즐겨찾기가 비어있습니다."가 출력됨.
@@ -431,6 +510,7 @@ public class BookService {
 	/**
 	 * 6. 즐겨찾기 삭제
 	 */
+	/*
 	public String deleteFav() {
 		showFav();	// 즐겨찾기에 등록된 목록들 출력
 		
@@ -456,6 +536,7 @@ public class BookService {
 /**
  * 8. 추천도서 뽑기
  */
+	/*
 public void randomBook() {
 		
 		int max = books.size();	// books 리스트가 가진 크기를 정수값으로 max에 저장
